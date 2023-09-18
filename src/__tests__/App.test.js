@@ -3,6 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { getEvents } from "../api";
 import App from "../App";
 
+/* eslint-disable */
+
 describe("<App /> component", () => {
   let AppDOM;
   beforeEach(() => {
@@ -65,6 +67,7 @@ describe("<App /> integration", () => {
     const EventListDOM = AppDOM.querySelector("#event-list");
     const allRenderedEventItems =
       within(EventListDOM).queryAllByRole("listitem");
+
     expect(allRenderedEventItems.length).toBe(10);
   });
 });
