@@ -3,6 +3,7 @@ import EventList from "./components/EventList";
 import NumberOfEvents from "./components/NumberOfEvents";
 import { useEffect, useState } from "react";
 import { extractLocations, getEvents } from "./api";
+import lmImage from "./img/lm.png";
 
 import "./App.css";
 
@@ -28,7 +29,16 @@ const App = () => {
 
   return (
     <div className="App">
+      <header className="letsmeet">
+        <img
+          src={lmImage}
+          alt="logo"
+          style={{ height: "300px", width: "auto", background: "transparent" }}
+        />
+      </header>
+      <h3>Looking for upcoming events happening around the world?</h3>
       <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+      <h3>Number of events?</h3>
       <NumberOfEvents setCurrentNOE={setCurrentNOE} />
       <EventList events={events} />
     </div>
