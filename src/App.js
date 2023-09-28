@@ -4,6 +4,8 @@ import NumberOfEvents from "./components/NumberOfEvents";
 import { useEffect, useState } from "react";
 import { extractLocations, getEvents } from "./api";
 import lmImage from "./img/lm.png";
+import { InfoAlert } from "./components/Alert";
+import { ErrorAlert } from "./components/Alert";
 
 import "./App.css";
 
@@ -12,6 +14,8 @@ const App = () => {
   const [currentNOE, setCurrentNOE] = useState(32);
   const [events, setEvents] = useState([]);
   const [currentCity, setCurrentCity] = useState("See all cities");
+  const [infoAlert, setInfoAlert] = useState("");
+  const [errorAlert, setErrorAlert] = useState("");
 
   const fetchData = async () => {
     const allEvents = await getEvents();
@@ -33,13 +37,27 @@ const App = () => {
         <img
           src={lmImage}
           alt="logo"
-          style={{ height: "300px", width: "auto", background: "transparent" }}
+          style={{ height: "300px", width: "auto" }}
         />
       </header>
       <h3>Looking for upcoming events happening around the world?</h3>
-      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+      <div className="alerts-container">
+        {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
+
+        {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
+      </div>
+
+      <CitySearch
+        allLocations={allLocations}
+        setCurrentCity={setCurrentCity}
+        setInfoAlert={setInfoAlert}
+      />
+
       <h3>Number of events?</h3>
-      <NumberOfEvents setCurrentNOE={setCurrentNOE} />
+      <NumberOfEvents
+        setCurrentNOE={setCurrentNOE}
+        setErrorAlert={setErrorAlert}
+      />
       <EventList events={events} />
     </div>
   );
