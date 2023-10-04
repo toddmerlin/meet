@@ -6,6 +6,7 @@ import { extractLocations, getEvents } from "./api";
 import lmImage from "./img/lm.png";
 import { InfoAlert } from "./components/Alert";
 import { ErrorAlert } from "./components/Alert";
+import { WarningAlert } from "./components/Alert";
 
 import "./App.css";
 
@@ -16,6 +17,7 @@ const App = () => {
   const [currentCity, setCurrentCity] = useState("See all cities");
   const [infoAlert, setInfoAlert] = useState("");
   const [errorAlert, setErrorAlert] = useState("");
+  const [warningAlert, setWarningAlert] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -37,13 +39,18 @@ const App = () => {
         <img
           src={lmImage}
           alt="logo"
-          style={{ height: "300px", width: "auto" }}
+          style={{
+            maxWidth: "100%",
+            height: "auto",
+            display: "block",
+          }}
         />
       </header>
       <h3>Looking for upcoming events happening around the world?</h3>
       <div className="alerts-container">
         {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
         {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
+        {warningAlert.length ? <WarningAlert text={warningAlert} /> : null}
       </div>
 
       <CitySearch
