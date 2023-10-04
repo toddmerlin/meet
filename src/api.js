@@ -53,12 +53,12 @@ const getToken = async (code) => {
 };
 
 export const getEvents = async () => {
+  NProgress.start();
   if (window.location.href.startsWith("http://localhost")) {
     return mockData;
   }
 
   if (!navigator.onLine) {
-    NProgress.start();
     const events = localStorage.getItem("lastEvents");
     NProgress.done();
     return events ? JSON.parse(events) : [];
