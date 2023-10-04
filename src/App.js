@@ -17,6 +17,10 @@ const App = () => {
   const [infoAlert, setInfoAlert] = useState("");
   const [errorAlert, setErrorAlert] = useState("");
 
+  useEffect(() => {
+    fetchData();
+  }, [currentCity, currentNOE]);
+
   const fetchData = async () => {
     const allEvents = await getEvents();
     const filteredEvents =
@@ -26,10 +30,6 @@ const App = () => {
     setEvents(filteredEvents.slice(0, currentNOE));
     setAllLocations(extractLocations(allEvents));
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [currentCity, currentNOE]);
 
   return (
     <div className="App">
@@ -43,7 +43,6 @@ const App = () => {
       <h3>Looking for upcoming events happening around the world?</h3>
       <div className="alerts-container">
         {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
-
         {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
       </div>
 
