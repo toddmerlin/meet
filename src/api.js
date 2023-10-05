@@ -54,7 +54,9 @@ const getToken = async (code) => {
 
 export const getEvents = async () => {
   NProgress.start();
+
   if (window.location.href.startsWith("http://localhost")) {
+    NProgress.done();
     return mockData;
   }
 
@@ -94,6 +96,7 @@ export const getAccessToken = async () => {
       const response = await fetch(
         "https://cyu1i1ggic.execute-api.ap-southeast-2.amazonaws.com/dev/api/get-auth-url"
       );
+
       const result = await response.json();
       const { authUrl } = result;
       return (window.location.href = authUrl);

@@ -120,7 +120,7 @@ input[type="number"] {
   }
 }
 
-@media all and (min-width: 740px) and (max-width: 1000px) {
+@media only screen and (min-width: 740px) and (max-width: 1000px) {
   .data-vis-wrapper {
     flex-direction: row;
   }
@@ -132,7 +132,7 @@ input[type="number"] {
   }
 }
 
-@media all and (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
   .data-vis-wrapper .recharts-responsive-container {
     flex-basis: 100%;
     max-width: 100%;
