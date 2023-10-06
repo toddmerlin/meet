@@ -2,9 +2,13 @@ import CitySearch from "./components/CitySearch";
 import EventList from "./components/EventList";
 import NumberOfEvents from "./components/NumberOfEvents";
 import CityEventsChart from "./components/CityEventsChart";
+import EventGenresChart from "./components/EventGenresChart";
+
 import { useEffect, useState } from "react";
 import { extractLocations, getEvents } from "./api";
+
 import lmImage from "./img/lm.png";
+
 import { InfoAlert } from "./components/Alert";
 import { ErrorAlert } from "./components/Alert";
 import { WarningAlert } from "./components/Alert";
@@ -72,7 +76,10 @@ const App = () => {
         setCurrentNOE={setCurrentNOE}
         setErrorAlert={setErrorAlert}
       />
-      <CityEventsChart allLocations={allLocations} events={events} />
+      <div className="charts-container">
+        <EventGenresChart events={events} />
+        <CityEventsChart allLocations={allLocations} events={events} />
+      </div>
       <EventList events={events} />
     </div>
   );
