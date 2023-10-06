@@ -1,34 +1,17 @@
 import { useState, useEffect } from "react";
-import { PieChart, Pie, ResponsiveContainer } from "recharts";
+import {
+  PieChart,
+  Pie,
+  ResponsiveContainer,
+  Cell,
+  Legend,
+  Tooltip,
+} from "recharts";
 
 const EventGenresChart = ({ events }) => {
   const [data, setData] = useState([]);
   const genres = ["React", "JavaScript", "Node", "jQuery", "Angular"];
-
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    outerRadius,
-    percent,
-    index,
-  }) => {
-    const RADIAN = Math.PI / 180;
-    const radius = outerRadius;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN) * 1.07;
-    const y = cy + radius * Math.sin(-midAngle * RADIAN) * 1.07;
-    return percent ? (
-      <text
-        x={x}
-        y={y}
-        fill="#8884d8"
-        textAnchor={x > cx ? "start" : "end"}
-        dominantBaseline="central"
-      >
-        {`${genres[index]} ${(percent * 100).toFixed(0)}%`}
-      </text>
-    ) : null;
-  };
+  const colors = ["#003399", "#009900", "#992600", "#b300b3", "#52527a"];
 
   useEffect(() => {
     setData(getData());
@@ -47,16 +30,34 @@ const EventGenresChart = ({ events }) => {
     return data;
   };
 
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    outerRadius,
+    percent,
+    index,
+  }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = outerRadius;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN) * 1.07;
+    const y = cy + radius * Math.sin(-midAngle * RADIAN) * 1.07;
+    return percent ? (
+      <text
+        x={x}
+        y={y}
+        fill="#black"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${genres[index]} ${(percent * 100).toFixed(0)}%`}
+      </text>
+    ) : null;
+  };
+
   return (
     <ResponsiveContainer width="99%" height={400}>
-      <PieChart
-        margin={{
-          top: 20,
-          right: 20,
-          bottom: 20,
-          left: 20,
-        }}
-      >
+      <PieChart>
         <Pie
           data={data}
           dataKey="value"
@@ -64,6 +65,23 @@ const EventGenresChart = ({ events }) => {
           labelLine={false}
           label={renderCustomizedLabel}
           outerRadius={150}
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index]} />
+          ))}
+        </Pie>
+        <Legend verticalAlign="bottom" height={36} iconType="plainline" />
+        <Tooltip
+          cursor={{ strokeDasharray: "3 3" }}
+          contentStyle={{
+            color: "black",
+            backgroundColor: "#7C9D96",
+            borderRadius: "10px",
+            display: "flex",
+            justifyContent: "center",
+            border: "none",
+            padding: "3px",
+          }}
         />
       </PieChart>
     </ResponsiveContainer>
